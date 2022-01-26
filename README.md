@@ -1,23 +1,10 @@
 # go-oidc
 
-[![Go Reference](https://pkg.go.dev/badge/github.com/coreos/go-oidc/v3/oidc.svg)](https://pkg.go.dev/github.com/coreos/go-oidc/v3/oidc)
-![github.com/coreos/go-oidc/v3](https://github.com/coreos/go-oidc/workflows/test/badge.svg?branch=v3)
+*Forked from [github.com/coreos/go-oidc](https://github.com/coreos/go-oidc)*
 
-## Updates from v2 to v3
+[![Go Reference](https://pkg.go.dev/badge/go.linka.cloud/go-oidc/v3/oidc.svg)](https://pkg.go.dev/go.linka.cloud/go-oidc/v3/oidc)
+![go.linka.cloud/go-oidc/v3](https://go.linka.cloud/go-oidc/workflows/test/badge.svg?branch=v3)
 
-There were two breaking changes made to the v3 branch. The import path has changed from:
-
-```
-github.com/coreos/go-oidc
-```
-
-to:
-
-```
-github.com/coreos/go-oidc/v3/oidc
-```
-
-And the return type of `NewRemoteKeySet()` is now `*RemoteKeySet` instead of an interface ([#262](https://github.com/coreos/go-oidc/pull/262)).
 
 ## OpenID Connect support for Go
 
