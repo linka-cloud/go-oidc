@@ -13,7 +13,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/coreos/go-oidc/v3/oidc"
+	"go.linka.cloud/go-oidc/v3/oidc"
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2"
 )
