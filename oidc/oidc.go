@@ -100,6 +100,7 @@ type Provider struct {
 	deviceAuthURL string
 	userInfoURL   string
 	jwksURL       string
+	endSessionURL string
 	algorithms    []string
 
 	// Raw claims returned by the server.
@@ -129,13 +130,14 @@ func (p *Provider) remoteKeySet() KeySet {
 }
 
 type providerJSON struct {
-	Issuer        string   `json:"issuer"`
-	AuthURL       string   `json:"authorization_endpoint"`
-	TokenURL      string   `json:"token_endpoint"`
-	DeviceAuthURL string   `json:"device_authorization_endpoint"`
-	JWKSURL       string   `json:"jwks_uri"`
-	UserInfoURL   string   `json:"userinfo_endpoint"`
-	Algorithms    []string `json:"id_token_signing_alg_values_supported"`
+	Issuer             string   `json:"issuer"`
+	AuthURL            string   `json:"authorization_endpoint"`
+	TokenURL           string   `json:"token_endpoint"`
+	DeviceAuthURL      string   `json:"device_authorization_endpoint"`
+	JWKSURL            string   `json:"jwks_uri"`
+	UserInfoURL        string   `json:"userinfo_endpoint"`
+	Algorithms         []string `json:"id_token_signing_alg_values_supported"`
+	EndSessionEndpoint string   `json:"end_session_endpoint"`
 }
 
 // supportedAlgorithms is a list of algorithms explicitly supported by this
@@ -162,7 +164,7 @@ var supportedAlgorithms = map[string]bool{
 // parsing.
 //
 //	// Directly fetch the metadata document.
-// 	resp, err := http.Get("https://login.example.com/custom-metadata-path")
+//	resp, err := http.Get("https://login.example.com/custom-metadata-path")
 //	if err != nil {
 //		// ...
 //	}
@@ -282,6 +284,7 @@ func NewProvider(ctx context.Context, issuer string) (*Provider, error) {
 		deviceAuthURL: p.DeviceAuthURL,
 		userInfoURL:   p.UserInfoURL,
 		jwksURL:       p.JWKSURL,
+		endSessionURL: p.EndSessionEndpoint,
 		algorithms:    algs,
 		rawClaims:     body,
 		client:        getClient(ctx),
@@ -398,6 +401,11 @@ func (p *Provider) UserInfo(ctx context.Context, tokenSource oauth2.TokenSource)
 		EmailVerified: bool(userInfo.EmailVerified),
 		claims:        body,
 	}, nil
+}
+
+// EndSessionURL returns the provider end session endpoint
+func (p *Provider) EndSessionURL() string {
+	return p.endSessionURL
 }
 
 // IDToken is an OpenID Connect extension that provides a predictable representation
